@@ -9,7 +9,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Link from "next/link";
-import { account, signInAccountEmail } from "@/lib/appwrite";
+//import { account, signInAccountEmail } from "@/lib/appwrite";
 
 export default function SignIn() {
   async function handleSignInForm(formData: FormData) {
