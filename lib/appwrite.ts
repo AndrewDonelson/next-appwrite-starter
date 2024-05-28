@@ -1,4 +1,4 @@
-import { Account, Avatars, Client, Databases, Storage } from "appwrite";
+import { Account, AppwriteException, Avatars, Client, Databases, Storage } from "appwrite";
 
 export const appwriteConfig = {
   url: process.env.NEXT_PUBLIC_APPWRITE_URL as string,
@@ -9,13 +9,7 @@ export const appwriteConfig = {
   storageId: process.env.NEXT_PUBLIC_APPWRITE_BUCKET_ID as string,
 };
 
-let client = undefined;
-
-try {
-  client = new Client()
-} catch (error) {
-  throw new Error("Appwrite client could not be created");
-}
+const client = new Client()
 
 if (!client) {
   throw new Error("Appwrite client could not be created");
@@ -35,19 +29,42 @@ const avatar = new Avatars(client);
 
 export { account, avatar, databases, storage, client };
 
-export async function signInAccountEmail( email : string, password : string) {
-    try {
-      const session = account.createEmailPasswordSession(email,password);
-      const acct = await account.get().then(function (response) {
-        console.log(response); // Success
-        return response;
-      }, function (error) {
-        console.log(error); // Failure
-        return error;
-      });
-    
-      return session;
-    } catch (error) {
-      console.error("Sign In Error:",error);
-    }
+export const getUserData = async () => {
+  try {
+    const account = new Account(client)
+    return account.get()
+  } catch (error) {
+    const appwriteError = error as AppwriteException;
+    throw new Error(appwriteError.message)
   }
+}
+
+export const signin = async (email: string, password: string) => {
+  try {
+    const account = new Account(client)
+    return account.createEmailPasswordSession(email, password)
+  } catch (error) {
+    const appwriteError = error as AppwriteException;
+    throw new Error(appwriteError.message)
+  }
+}
+
+export const signout = async () => {
+  try {
+    const account = new Account(client)
+    return account.deleteSession('current')
+  } catch (error: unknown) {
+    const appwriteError = error as AppwriteException;
+    throw new Error(appwriteError.message)
+  }
+}
+
+export const signup = async (email: string, password: string) => {
+  try {
+    const account = new Account(client)
+    return account.create('unique()', email, password)
+  } catch (error) {
+    const appwriteError = error as AppwriteException;
+    throw new Error(appwriteError.message)
+  }
+}

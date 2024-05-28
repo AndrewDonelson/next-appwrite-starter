@@ -9,7 +9,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Link from "next/link";
-import { account, signInAccountEmail } from "@/lib/appwrite";
+import { signin } from "@/lib/appwrite";
 
 export default function SignIn() {
   async function handleSignInForm(formData: FormData) {
@@ -20,7 +20,7 @@ export default function SignIn() {
     let signinPassword = String(formData.get("password"));
 
     console.log("Signing in with", signinEmail, signinPassword);
-
+    signin(signinEmail, signinPassword);
     let session = undefined
 
     /*
