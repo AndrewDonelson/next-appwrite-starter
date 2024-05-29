@@ -1,3 +1,4 @@
+
 import { GettingStarted } from "@/components/GettingStarted";
 import Image from "next/image";
 
