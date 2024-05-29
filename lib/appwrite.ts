@@ -2,7 +2,7 @@
 import { Account, Avatars, Client, Databases, Storage } from "node-appwrite";
 import { cookies } from "next/headers";
 
-export const appwriteConfig = {
+const appwriteConfig = {
   appNameShort: process.env.NEXT_PUBLIC_APP_SHORT_NAME as string,
   url: process.env.NEXT_PUBLIC_APPWRITE_URL as string,
   projectId: process.env.NEXT_PUBLIC_APPWRITE_PROJECT_ID as string,
