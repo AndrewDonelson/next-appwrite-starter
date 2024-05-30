@@ -28,8 +28,10 @@ export default async function SignIn() {
     let signinPassword = String(formData.get("password"));
 
     console.log("Signing in with", signinEmail, signinPassword);
+
     const { account } = await createAdminClient();
     const session = await account.createEmailPasswordSession(signinEmail, signinPassword)
+
     console.log("Done! Session is", session);
 
     console.log("Creating Session cookie name", appwriteConfig.sessionName);
