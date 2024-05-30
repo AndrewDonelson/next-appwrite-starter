@@ -23,7 +23,7 @@ export const appwriteConfig = {
   /**
    * The API key for the Appwrite service, loaded from the environment variable `NEXT_PUBLIC_APPWRITE_API_KEY`.
    */
-  apiKey: process.env.NEXT_PUBLIC_APPWRITE_API_KEY as string,
+  apiKey: process.env.NEXT_PUBLIC_APPWRITE_APIKEY as string,
   
   /**
    * The ID of the Appwrite database to use.
